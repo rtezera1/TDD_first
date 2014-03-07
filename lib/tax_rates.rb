@@ -4,8 +4,11 @@ require 'pry'
 
 class Person
   def initialize(first_name, last_name, annual_income, tax_paid, tax_rate)
-    @first_name = first_name
-    @last_name = last_name
+
+    first_name.nil? ? @first_name = '[First Name]' : @first_name = first_name
+
+    last_name.nil? ? @last_name = '[Last Name]' : @last_name = last_name
+
     @annual_income = annual_income.to_f
     @tax_paid = tax_paid.to_f
     @tax_rate = tax_rate.to_f
@@ -15,8 +18,10 @@ class Person
     if amount_owed < 0
       refund = amount_owed * -1
       "#{@first_name} #{@last_name} will receive a refund of #{format_currency(refund)}"
+    elsif amount_owed > 0
+      "#{@first_name} #{@last_name} has a tax liability of #{format_currency(amount_owed)}"
     else
-      "#{@first_name} #{@last_name} owes #{format_currency(amount_owed)} in taxes"
+      "#{@first_name} #{@last_name} has no tax liability"
     end
   end
 
